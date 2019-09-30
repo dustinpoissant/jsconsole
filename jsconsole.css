@@ -1,0 +1,308 @@
+.jsconsole,
+.jsconsole *,
+.jsconsole *::before,
+.jsconsole *::after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  line-height: 1.35em;
+}
+.jsconsole {
+  display: block;
+  margin-bottom: 1em;
+  position: relative;
+  font-size: 16px;
+  padding: 0;
+  border-radius: var(--radius, 0);
+}
+
+.jsconsole:focus-within {
+  box-shadow: 0 0 2px 1px #36f;
+}
+
+.jsconsole .jsconsole-code {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  border: 1px solid var(--c_border, #ccc);
+  border-radius: var(--radius, 0);
+  background-color: #333;
+  background-color: var(--c_inverse, #333);
+  color: white;
+  color: var(--c_text__inverse, white);
+  max-height: 75vh;
+  overflow: auto;
+  margin-bottom: 0 !important;
+}
+
+.jsconsole-output {
+  flex-grow: 0;
+  flex-shrink: 0;
+  padding: 0;
+  background: transparent !important;
+  color: inherit !important;
+}
+
+.jsconsole-input {
+  flex-grow: 1;
+  flex-shrink: 1;
+  min-height: 4em;
+  padding: .5em 1em;
+  padding-left: 2em;
+  outline: none;
+  background: transparent !important;
+  color: inherit !important;
+}
+
+.jsconsole-input:focus {
+  box-shadow: 0 0 0 transparent !important;
+}
+
+.jsconsole-input::before {
+  content: ">";
+  margin-left: -1em;
+  margin-right: .5em;
+  font-weight: 700;
+  color: #69f;
+}
+
+.jsconsole-btn {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  padding: .5em 1em;
+  background-color: white;
+  background-color: var(--c_primary, white);
+  color: black;
+  color: var(--c_text__primary, black);
+}
+
+.jsconsole-cl,
+.jsconsole-ce,
+.jsconsole-cw,
+.jsconsole-ran,
+.jsconsole-return {
+  padding: .5em 1em .5em 2em;
+  background: transparent !important;
+  color: inherit !important;
+}
+
+.jsconsole-cl::before,
+.jsconsole-ce::before,
+.jsconsole-cw::before,
+.jsconsole-ran::before,
+.jsconsole-return::before {
+  content: "<";
+  margin-left: -1em;
+  margin-right: .5em;
+}
+
+.jsconsole-ran::before {
+  content: ">";
+}
+
+.jsconsole-cl::before {
+  content: "\0270E"
+}
+.jsconsole-ce::before {
+  content: "\2716"
+}
+.jsconsole-cw::before {
+  content: "\26A0"
+}
+
+.jsconsole-ce {
+  color: #f06 !important;
+  color: var(--c_error, #f06) !important;
+  background-color: rgba(255, 0, 102, .05) !important;
+  border-top: 1px solid rgba(255, 0, 102, .5);
+  border-bottom: 1px solid rgba(255, 0, 102, .5);
+}
+
+.jsconsole-cw {
+  color: #f90 !important;
+  color: var(--c_warn, #f90) !important;
+  background-color: rgba(255, 153, 0, .05) !important;
+  border-top: 1px solid rgba(255, 153, 0, .5);
+  border-bottom: 1px solid rgba(255, 153, 0, .5);
+}
+
+
+.jsconsole-return {
+  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(--c_border, #ccc);
+  opacity: .8;
+}
+
+.jsc-be {
+  display: block;
+  margin-left: 1rem;
+}
+.jsc-be + .jsc-ie,
+.jsc-be.jsc-nbec {
+  display: block;
+  margin-left: 2.1rem;
+}
+.jsc-be._expanded > .hljs-tag:last-child {
+  margin-left: 1rem;
+}
+.jsconsole-return > .jsc-be:first-child {
+  margin-top: -1rem;
+}
+.jsc-be:not(._expanded):not(.jsc-nbec) > *:not(.hljs-tag):not(.jsc-ee),
+.jsc-ie > .jsc-ee,
+.jsc-nbec > .jsc-ee {
+  display: none;
+}
+
+.jsc-ai > .jsc-be {
+  display: inline-block;
+  margin-left: 0;
+}
+
+.jsconsole-output * {
+  vertical-align: top;
+}
+
+.jsc-ae,
+.jsc-oe,
+.jsc-ee {
+  display: inline-block;
+  cursor: pointer;
+  transition: transform .25s;
+  transform: rotate(0deg);
+  font-size: 12px;
+}
+.jsc-array._expanded > .jsc-ae,
+.jsc-object._expanded > .jsc-oe,
+.jsc-be._expanded > .jsc-ee {
+  transform: rotate(90deg);
+}
+.jsc-array:not(._expanded) .jsc-ai:not(:nth-child(-n+5)),
+.jsc-array:not(._expanded) .jsc-aii,
+.jsc-object:not(._expanded) .jsc-op:not(:nth-child(-n+4)),
+.jsc-array:not(._expanded) .jsc-array .jsc-ae,
+.jsc-array:not(._expanded) .jsc-object .jsc-oe,
+.jsc-object:not(._expanded) .jsc-array .jsc-ae,
+.jsc-object:not(._expanded) .jsc-object .jsc-oe,
+.jsc-be > .jsc-etn,
+.jsc-ie > .jsc-etn {
+  display: none;
+}
+.jsc-array:not(._expanded) .jsc-ai:nth-child(5)::after,
+.jsc-object:not(._expanded) .jsc-op:nth-child(4)::after,
+.jsc-be:not(._expanded):not(.jsc-nbec) .hljs-tag:nth-child(2)::after {
+  content: "...";
+}
+.jsc-array._expanded > .jsc-ai,
+.jsc-object._expanded > .jsc-op {
+  display: block;
+  padding-left: 1rem;
+}
+.jsc-op.jsc-nep,
+.jsc-al,
+.jsc-etn {
+  opacity: .5;
+}
+
+
+
+.jsconsole .hljs-keyword,
+.jsconsole .hljs-literal,
+.jsconsole .hljs-symbol,
+.jsconsole .hljs-name {
+  color: #569CD6
+}
+
+.jsconsole .hljs-link {
+  color: #569CD6;
+  text-decoration: underline
+}
+
+.jsconsole .hljs-built_in,
+.jsconsole .hljs-type {
+  color: #4EC9B0
+}
+
+.jsconsole .hljs-number,
+.jsconsole .hljs-class {
+  color: #B8D7A3
+}
+
+.jsconsole .hljs-string,
+.jsconsole .hljs-meta-string {
+  color: #D69D85
+}
+
+.jsconsole .hljs-regexp,
+.jsconsole .hljs-template-tag {
+  color: #9A5334
+}
+
+.jsconsole .hljs-subst,
+.jsconsole .hljs-function,
+.jsconsole .hljs-title,
+.jsconsole .hljs-params,
+.jsconsole .hljs-formula {
+  color: #DCDCDC
+}
+
+.jsconsole .hljs-comment,
+.jsconsole .hljs-quote {
+  color: #57A64A;
+  font-style: italic
+}
+
+.jsconsole .hljs-doctag {
+  color: #608B4E
+}
+
+.jsconsole .hljs-meta,
+.jsconsole .hljs-meta-keyword,
+.jsconsole .hljs-tag {
+  color: #9B9B9B
+}
+
+.jsconsole .hljs-variable,
+.jsconsole .hljs-template-variable {
+  color: #BD63C5
+}
+
+.jsconsole .hljs-attr,
+.jsconsole .hljs-attribute,
+.jsconsole .hljs-builtin-name {
+  color: #9CDCFE
+}
+
+.jsconsole .hljs-section {
+  color: gold
+}
+
+.jsconsole .hljs-emphasis {
+  font-style: italic
+}
+
+.jsconsole .hljs-strong {
+  font-weight: bold
+}
+
+.jsconsole .hljs-bullet,
+.jsconsole .hljs-selector-tag,
+.jsconsole .hljs-selector-id,
+.jsconsole .hljs-selector-class,
+.jsconsole .hljs-selector-attr,
+.jsconsole .hljs-selector-pseudo {
+  color: #D7BA7D
+}
+
+.jsconsole .hljs-addition {
+  background-color: #144212;
+  display: inline-block;
+  width: 100%
+}
+
+.jsconsole .hljs-deletion {
+  background-color: #600;
+  display: inline-block;
+  width: 100%
+}

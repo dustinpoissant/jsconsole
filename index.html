@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>JS Console</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <style>.hljs{display:block;overflow-x:auto;padding:.5em;background:white;color:black}.hljs-comment,.hljs-quote,.hljs-variable{color:#008000}.hljs-keyword,.hljs-selector-tag,.hljs-built_in,.hljs-name,.hljs-tag{color:#00f}.hljs-string,.hljs-title,.hljs-section,.hljs-attribute,.hljs-literal,.hljs-template-tag,.hljs-template-variable,.hljs-type,.hljs-addition{color:#a31515}.hljs-deletion,.hljs-selector-attr,.hljs-selector-pseudo,.hljs-meta{color:#2b91af}.hljs-doctag{color:#808080}.hljs-attr{color:#f00}.hljs-symbol,.hljs-bullet,.hljs-link{color:#00b0e8}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:bold}</style>
+  <link rel="stylesheet" href="essential.min.css" />
+  <script src="./jsconsole.js"></script>
+  <link rel="stylesheet" href="./jsconsole.css" />
+</head>
+<body>
+  <h1 class="text-center">JS Console</h1>
+  <p class="text-center">A dependency free JavaScript Console that can be embeded in any site.</p>
+  <hr />
+  <main>
+    <div>
+      <h3 class="bg py border-bottom sticky">Getting Started</h3>
+      <h6>Import the script and style into the head of your document.</h6>
+      <pre><code class="html">&lt;script src="jsconsole.js">&lt;/script><br />&lt;link rel="stylesheet" href="jsconsole.css" /></code></pre>
+      <h6>Add this HTML to your page:</h6>
+      <pre><code class="html">&lt;div class="jsconsole">&lt;/div></code></pre>
+      <h6>This is automatically created:</h6>
+      <div class="jsconsole"></div>
+      <h5>Keyboard Controls</h5>
+      <dl>
+        <dt><code>Enter</code></dt>
+        <dd>Runs the code, unless using the <code>data-run-btn</code> attribute (see below).</dd>
+        <dt><code>Shift + Enter</code></dt>
+        <dd>Creates a new line.</dd>
+        <dt><code>Up</code></dt>
+        <dd>If your on the top line of your code, pressing the up key moves backworks through your code history.</dd>
+        <dt><code>Down</code></dt>
+        <dd>If your on the bottom line of your code, pressing the down key moves forewards through your code history.</dd>
+      </dl>
+    </div>
+    <div>
+      <h3 class="bg py border-bottom sticky">Default Code</h3>
+      <p>To pre-populate the console with some code, put it within the <code>&lt;div></code>:</p>
+      <pre><code class="html">&lt;div class="jsconsole">var foo = "bar"&lt;/div></code></pre>
+      <div class="jsconsole">var foo = "bar"</div>
+      <p>You can use a <code>&lt;pre></code> element to preformat your code (line breaks and spacing preserved).</p>
+      <pre><code class="html">&lt;div class="jsconsole">&lt;pre>(n => {<br />  return n + 2;<br />})(2)&lt;/pre>&lt;/div></code></pre>
+      <div class="jsconsole"><pre>(n => {<br />  return n + 2;<br />})(2)</pre></div>
+
+      <h5>Preserve the Default Code</h5>
+      <p>Give the <code>&lt;div></code> element a <code>data-preserve-default-code</code> attribute to automatically reload the default code after each time code is ran.</p>
+      <pre><code class="html">&lt;div class="jsconsole" data-preserve-default-code>true == !1&lt;/div></code></pre>
+      <div class="jsconsole" data-preserve-default-code>true == !1</div>
+    </div>
+    <div>
+      <h3 class="bg py border-bottom sticky">Run button</h3>
+      <p>To show an "Run" button give your <code>&lt;div></code> element a <code>data-run-btn</code> attribute. Doing this will also <b>prevent</b> the enter key from running the code.</p>
+      <pre><code class="html">&lt;div class="jsconsole" data-run-btn>&lt;/div></code></pre>
+      <div class="jsconsole" data-run-btn>1 + 2</div>
+      <p>Give the <code>data-run-btn</code> attribute a value to set a custom "run" button text.</p>
+      <pre><code class="html">&lt;div class="jsconsole" data-run-btn="Execute">&lt;/div></code></pre>
+      <div class="jsconsole" data-run-btn="Execute">2 + 2</div>
+    </div>
+    <div>
+      <h3 class="bg py border-bottom sticky">Auto Run Default</h3>
+      <p>You can have the console automatically run teh default code by giving it an attribute of <code>data-run-default</code>.</p>
+      <div class="jsconsole" data-run-default>1 + 7</div>
+    </div>
+    <div>
+      <h3 class="bg py border-bottom sticky">Interactive Outputs</h3>
+      <p><code>Object</code>s, <code>Array</code>s and <code>HTMLElement</code>s have interactive ouputs that allow you to expand/collapse data to optimise space while making data available.</p>
+      
+      <h5>Arrays</h5>
+      <p>The first three items of an <code>Array</code> are visible, then the array can be expanded to show all items. The size of the array is displayed muted before the array.</p>
+      <pre><code class="html">&lt;div class="jsconsole" data-run-btn data-preserve-default-code>["item 1", undefined, null, 2, true, "item 6"]&lt;/div></code></pre>
+      <div class="jsconsole" data-run-default>["item 1", undefined, null, 2, true, "item 6"]</div>
+
+      <h5>Objects</h5>
+      <p>The first three properties of an <code>Object</code> are visible, then the object can be expanded to show all properties.</p>
+      <div class="jsconsole" data-run-default><pre>{hello:"world",foo:"bar",key3:"value 3",key4:"value 4","key 5":"value 5"}</pre></div>
+
+      <h5>HTML Elements</h5>
+      <p><code>HTMLElements</code> are displayed in their XML format, block elements with block children are collapsed but can be expanded to show the contents.</p>
+      <pre><code class="html">&lt;div id="myDiv" style="display: none"><br />  &lt;p>Hello World&lt;/p><br />&lt;/div><br />&lt;div class="jsconsole" data-run-btn data-preserve-default-code>document.getElementById("myDiv")&lt;/div></code></pre>
+      <div id="myDiv" style="display: none"><p>Hello World</p></div>
+      <div class="jsconsole" data-run-default>document.getElementById("myDiv")</div>
+
+    </div>
+    <div>
+      <h3 class="bg py border-bottom sticky">Syntax Highlighting</h3>
+      <p>To use syntax highlihgting just include <a href="https://highlightjs.org/" target="_blank">Highlight JS</a> on your page. <em>JS Console</em> will automatically apply the VS2015 theme.</p>
+      <pre><code class="html">&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js">&lt;/script></code></pre>  
+    </div>
+  </main>
+  <div class="mobile-hide" style="height: 25vh"></div>
+  <script>
+    if(typeof(hljs) != "undefined") Array.prototype.slice.call(document.querySelectorAll("pre code.html")).forEach(hljs.highlightBlock);
+  </script>
+</body>
+</html>
