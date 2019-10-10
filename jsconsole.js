@@ -24,6 +24,7 @@ var jsconsole = (function(){
   function consolify(str){
     if(typeof(str) == "string") return '<span class="hljs-string">"' + str.replace(new RegExp("<", "g"), "&lt;") + '"</span>';
     else if(str instanceof Error) return str.message;
+    else if(str instanceof DocumentFragment) return consolifyDocFrag(str);
     else if(str instanceof Array){
       return consolifyArray(str);
     } else if(str instanceof Node && str.nodeType == 3){
@@ -66,6 +67,13 @@ var jsconsole = (function(){
     }).join("") + 
     '}</span>';
   }
+  function renderChildren(children){
+    var a = [];
+    for(var i=0; i<children.length; i++){
+      a.push(consolify(children[i]));
+    }
+    return a.join("");
+  }
   function consolifyElement(el){
     var inlineElements = ["b", "big", "i", "em", "small", "tt", "abbr", "acronym", "cite", "code", "dfn", "em", "kbd", "strong", "samp", "var", "a", "bdo", "br", "img", "map", "object", "q", "span", "sub", "sup", "button", "input", "label", "select", "textarea"];
     function renderAttributes(attrs){
@@ -76,13 +84,6 @@ var jsconsole = (function(){
       }
       return " " + a.join(" ");
     }
-    function renderChildren(children){
-      var a = [];
-      for(var i=0; i<children.length; i++){
-        a.push(consolify(children[i]));
-      }
-      return a.join("");
-    }
     function containsBlockChildren(el){
       for(var i=0; i<el.children.length;i++){
         if(inlineElements.indexOf(el.children[i].tagName.toLowerCase()) == -1) return true;
@@ -92,9 +93,15 @@ var jsconsole = (function(){
     if(!el.tagName) return "";
     var elementType = (inlineElements.indexOf(el.tagName.toLowerCase()) == -1)?"jsc-be":"jsc-ie";
     if(!containsBlockChildren(el)) elementType += " jsc-nbec"; // no block element children
-    str = '<span class="'+elementType+'"><span class="jsc-ee">&#9654; </span><span class="hljs-tag">&lt;<span class="hljs-name">' + el.tagName.toLowerCase() + '</span>' + renderAttributes(el.attributes) + "></span>";
+    var str = '<span class="'+elementType+'"><span class="jsc-ee">&#9654; </span><span class="hljs-tag">&lt;<span class="hljs-name">' + el.tagName.toLowerCase() + '</span>' + renderAttributes(el.attributes) + "></span>";
     str += renderChildren(el.childNodes);
-    str += '<span class="hljs-tag">&lt;/<span class="hljs-name">' + el.tagName.toLowerCase() + '</span>></span></span>'
+    str += '<span class="hljs-tag">&lt;/<span class="hljs-name">' + el.tagName.toLowerCase() + '</span>></span></span>';
+    return str;
+  }
+  function consolifyDocFrag(df){
+    var str = '<span class="jsc-be">' + ((df.childNodes.length)?'<span class="jsc-ee">&#9654; </span>':'') + '<span class="hljs-tag"><span class="hljs-name">#document-fragment</span></span>';
+    str += renderChildren(df.childNodes);
+    str += '</span>';
     return str;
   }
   function moveCursorToEnd($input){
